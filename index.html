@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Questverse Game Studio — Games of Distinction</title>
+<meta name="description" content="Questverse Game Studio crafts elegant casual games for mobile, built with care and finished with polish.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#F6F1E4;
+    --ivory-2:#EFE8D6;
+    --paper:#FFFDF7;
+    --ink:#16171A;
+    --muted:#6E6452;
+    --gold:#A9842B;
+    --gold-lt:#D9B44A;
+    --gold-pale:#E8D7A8;
+    --forest:#12332A;
+    --rule:#D8CDB2;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--ivory);
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(169,132,43,.07), transparent 55%),
+      repeating-linear-gradient(0deg, rgba(169,132,43,.028) 0 1px, transparent 1px 4px);
+    color:var(--ink);
+    font-family:'Jost',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-size:16.5px;font-weight:300;line-height:1.8;-webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.disp{font-family:'Cinzel',Georgia,serif;font-weight:400;letter-spacing:.04em;line-height:1.24}
+  a{color:var(--gold);text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 28px}
+  .center{text-align:center}
+
+  /* ---------- ornaments ---------- */
+  .rule-gold{height:1px;background:linear-gradient(90deg,transparent,var(--gold) 18%,var(--gold) 82%,transparent)}
+  .rule-double{display:flex;flex-direction:column;gap:4px}
+  .rule-double span{height:1px;background:var(--gold)}
+
+  .ornament{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto}
+  .ornament .ln{height:1px;width:70px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .ornament .ln.r{background:linear-gradient(90deg,var(--gold),transparent)}
+  .ornament .dm{
+    width:9px;height:9px;background:var(--gold);transform:rotate(45deg);
+    box-shadow:0 0 0 4px var(--ivory), 0 0 0 5px var(--gold-pale);
+  }
+  .ornament .dm.big{width:11px;height:11px}
+
+  /* ---------- header ---------- */
+  header{position:sticky;top:0;z-index:60;background:rgba(246,241,228,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--rule)}
+  .topbar{display:flex;align-items:center;justify-content:space-between;height:78px;gap:24px}
+  .brand{display:flex;align-items:center;gap:14px}
+  .brand .mk{
+    width:34px;height:34px;flex:none;position:relative;
+    border:1px solid var(--gold);transform:rotate(45deg);
+  }
+  .brand .mk:before{content:"";position:absolute;inset:6px;border:1px solid var(--gold-lt)}
+  .brand .mk:after{content:"";position:absolute;inset:13px;background:var(--gold)}
+  .brand .txt{font-family:'Cinzel',serif;font-weight:500;font-size:1.02rem;letter-spacing:.16em;text-transform:uppercase;line-height:1.2}
+  .brand .txt small{display:block;font-family:'Jost',sans-serif;font-size:.6rem;letter-spacing:.34em;color:var(--muted);font-weight:400;margin-top:3px}
+  .topbar ul{display:flex;gap:34px;list-style:none}
+  .topbar ul a{
+    font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);font-weight:400;
+    padding-bottom:4px;border-bottom:1px solid transparent;
+  }
+  .topbar ul a:hover{color:var(--gold);border-bottom-color:var(--gold)}
+  .topbar .cta{
+    font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;
+    border:1px solid var(--gold);padding:11px 22px;color:var(--gold);
+    background:transparent;transition:background .2s ease,color .2s ease;white-space:nowrap;
+  }
+  .topbar .cta:hover{background:var(--gold);color:var(--paper)}
+
+  /* ---------- ticker ---------- */
+  .ticker{border-bottom:1px solid var(--rule);background:var(--ivory-2);overflow:hidden;padding:10px 0}
+  .ticker .track{display:flex;white-space:nowrap;animation:sl 30s linear infinite;width:max-content}
+  .ticker span{
+    font-size:.66rem;letter-spacing:.32em;text-transform:uppercase;color:var(--muted);
+    padding:0 30px;position:relative;
+  }
+  .ticker span:after{content:"◆";position:absolute;right:-4px;color:var(--gold);font-size:.5rem;top:2px}
+  @keyframes sl{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:92px 0 84px;text-align:center;position:relative;overflow:hidden}
+  .hero .rays{
+    position:absolute;left:50%;top:-220px;transform:translateX(-50%);
+    width:900px;height:900px;pointer-events:none;opacity:.5;
+    background:repeating-conic-gradient(from 0deg at 50% 50%,
+      rgba(169,132,43,.10) 0deg 0.5deg, transparent 0.5deg 6deg);
+    -webkit-mask-image:radial-gradient(circle at 50% 50%, #000 0%, transparent 62%);
+    mask-image:radial-gradient(circle at 50% 50%, #000 0%, transparent 62%);
+  }
+  .hero .wrap{position:relative;z-index:1}
+  .eyebrow{
+    font-size:.7rem;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);
+    display:block;margin-bottom:26px;font-weight:400;
+  }
+  .hero h1{font-size:clamp(2.1rem,5.2vw,3.8rem);max-width:22ch;margin:0 auto 8px;font-weight:400}
+  .hero h1 em{font-style:normal;color:var(--gold);position:relative;white-space:nowrap}
+  .hero .sub{
+    font-family:'Cinzel',serif;font-size:clamp(.86rem,1.6vw,1.06rem);letter-spacing:.3em;
+    text-transform:uppercase;color:var(--muted);margin:18px 0 30px;font-weight:400;
+  }
+  .hero p.lead{max-width:60ch;margin:0 auto 40px;color:#4A4638;font-size:1.04rem;font-weight:300}
+  .btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+  .btn{
+    display:inline-block;font-size:.72rem;letter-spacing:.24em;text-transform:uppercase;
+    padding:16px 40px;border:1px solid var(--gold);transition:background .22s ease,color .22s ease;
+  }
+  .btn-solid{background:var(--gold);color:var(--paper)}
+  .btn-solid:hover{background:var(--forest);border-color:var(--forest);color:var(--paper)}
+  .btn-line{color:var(--gold);background:transparent}
+  .btn-line:hover{background:var(--gold);color:var(--paper)}
+
+  /* ---------- stats ---------- */
+  .stats{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);background:var(--paper)}
+  .stats .wrap{display:grid;grid-template-columns:repeat(4,1fr)}
+  .stats div{padding:32px 14px;text-align:center;border-right:1px solid var(--rule)}
+  .stats div:last-child{border-right:0}
+  .stats .n{font-family:'Cinzel',serif;font-size:1.9rem;color:var(--gold);line-height:1;margin-bottom:8px;font-weight:500}
+  .stats small{font-size:.66rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted)}
+
+  /* ---------- sections ---------- */
+  section{padding:92px 0}
+  .sec-head{text-align:center;max-width:64ch;margin:0 auto 60px}
+  .sec-head .no{
+    font-family:'Cinzel',serif;font-size:.72rem;letter-spacing:.4em;color:var(--gold);
+    display:block;margin-bottom:18px;
+  }
+  .sec-head h2{font-size:clamp(1.6rem,3.4vw,2.4rem);margin-bottom:20px}
+  .sec-head p{color:var(--muted);font-weight:300}
+  .sec-head .ornament{margin-top:26px}
+
+  /* cards */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .card{
+    background:var(--paper);border:1px solid var(--rule);padding:40px 30px 34px;
+    position:relative;transition:border-color .24s ease,transform .24s ease;
+  }
+  .card:before{
+    content:"";position:absolute;inset:7px;border:1px solid rgba(169,132,43,.22);pointer-events:none;
+    transition:border-color .24s ease;
+  }
+  .card:hover{border-color:var(--gold);transform:translateY(-3px)}
+  .card:hover:before{border-color:rgba(169,132,43,.5)}
+  .card .dia{
+    width:22px;height:22px;border:1px solid var(--gold);transform:rotate(45deg);
+    margin:0 auto 26px;position:relative;
+  }
+  .card .dia:after{content:"";position:absolute;inset:6px;background:var(--gold-lt)}
+  .card h3{font-size:1.12rem;margin-bottom:14px;text-align:center;letter-spacing:.08em}
+  .card p{color:var(--muted);font-size:.93rem;text-align:center;font-weight:300}
+  .card .num{
+    position:absolute;top:16px;left:18px;font-family:'Cinzel',serif;font-size:.64rem;
+    letter-spacing:.2em;color:var(--gold-pale);
+  }
+
+  /* flagship */
+  .flag{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--rule);background:var(--paper)}
+  .flag .txt{padding:56px 48px;border-right:1px solid var(--rule)}
+  .flag .txt .kicker{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:20px}
+  .flag .txt h2{font-size:clamp(1.5rem,3vw,2.1rem);margin-bottom:22px}
+  .flag .txt p{color:var(--muted);margin-bottom:16px;font-weight:300;font-size:.99rem}
+  .flag .art{
+    background:var(--forest);position:relative;display:grid;place-items:center;min-height:440px;overflow:hidden;
+  }
+  .flag .art .glow{
+    position:absolute;inset:0;
+    background:repeating-conic-gradient(from 0deg at 50% 100%,
+      rgba(217,180,74,.20) 0deg .4deg, transparent .4deg 5deg);
+    -webkit-mask-image:radial-gradient(circle at 50% 100%, #000 0%, transparent 72%);
+    mask-image:radial-gradient(circle at 50% 100%, #000 0%, transparent 72%);
+  }
+  .flag .art .medal{
+    position:relative;width:196px;height:196px;
+    border:1px solid var(--gold-lt);
+    display:grid;place-items:center;
+  }
+  .flag .art .medal:before{content:"";position:absolute;inset:9px;border:1px solid rgba(217,180,74,.55)}
+  .flag .art .medal:after{content:"";position:absolute;inset:-1px;border-top:1px solid var(--gold-lt);border-bottom:1px solid var(--gold-lt);transform:rotate(45deg) scale(.707)}
+  .flag .art .medal b{
+    font-family:'Cinzel',serif;font-weight:500;font-size:3.4rem;color:var(--gold-lt);
+    letter-spacing:.06em;position:relative;z-index:2;
+  }
+  .tags{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px;justify-content:flex-start}
+  .tag{
+    font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);
+    border:1px solid var(--rule);padding:8px 15px;
+  }
+
+  /* values */
+  .vals{display:grid;grid-template-columns:repeat(2,1fr);gap:0;border-top:1px solid var(--rule)}
+  .val{
+    padding:40px 38px;border-bottom:1px solid var(--rule);display:grid;
+    grid-template-columns:56px 1fr;gap:22px;align-items:start;
+  }
+  .val:nth-child(odd){border-right:1px solid var(--rule)}
+  .val .g{
+    width:44px;height:44px;border:1px solid var(--gold);transform:rotate(45deg);
+    display:grid;place-items:center;flex:none;margin-top:6px;
+  }
+  .val .g span{
+    transform:rotate(-45deg);font-family:'Cinzel',serif;font-size:.86rem;color:var(--gold);
+  }
+  .val h3{font-size:1.04rem;margin-bottom:9px;letter-spacing:.06em}
+  .val p{color:var(--muted);font-size:.93rem;font-weight:300}
+
+  /* contact */
+  .contact{border:1px solid var(--rule);background:var(--paper);padding:56px 48px;text-align:center;position:relative}
+  .contact:before{content:"";position:absolute;inset:8px;border:1px solid rgba(169,132,43,.24);pointer-events:none}
+  .contact h2{font-size:clamp(1.5rem,3.2vw,2.1rem);margin-bottom:18px}
+  .contact p{color:var(--muted);max-width:56ch;margin:0 auto 36px;font-weight:300}
+  .mailrow{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+  .mbox{border:1px solid var(--rule);padding:22px 34px;min-width:280px;background:var(--ivory)}
+  .mbox small{display:block;font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+  .mbox a{font-family:'Cinzel',serif;font-size:.98rem;letter-spacing:.02em;color:var(--forest);word-break:break-all}
+  .mbox a:hover{color:var(--gold)}
+
+  /* footer */
+  footer{border-top:1px solid var(--rule);padding:44px 0 52px;text-align:center}
+  footer .fmk{
+    width:26px;height:26px;border:1px solid var(--gold);transform:rotate(45deg);
+    margin:0 auto 22px;position:relative;
+  }
+  footer .fmk:after{content:"";position:absolute;inset:9px;background:var(--gold)}
+  footer .cp{font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
+  footer nav{display:flex;gap:32px;justify-content:center;flex-wrap:wrap}
+  footer nav a{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+  footer nav a:hover{color:var(--gold)}
+
+  @media(max-width:900px){
+    .topbar ul{display:none}
+    .stats .wrap{grid-template-columns:repeat(2,1fr)}
+    .stats div:nth-child(2){border-right:0}
+    .stats div:nth-child(1),.stats div:nth-child(2){border-bottom:1px solid var(--rule)}
+    .cards{grid-template-columns:1fr}
+    .flag{grid-template-columns:1fr}
+    .flag .txt{border-right:0;border-bottom:1px solid var(--rule);padding:36px 26px}
+    .flag .art{min-height:340px}
+    .vals{grid-template-columns:1fr}
+    .val:nth-child(odd){border-right:0}
+    .contact{padding:38px 24px}
+    .mbox{min-width:0;width:100%}
+    section{padding:62px 0}
+    .hero{padding:56px 0 60px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap topbar">
+    <a class="brand" href="/" style="text-decoration:none;color:inherit">
+      <span class="mk"></span>
+      <span class="txt">Questverse<small>Game Studio</small></span>
+    </a>
+    <ul>
+      <li><a href="#studio">Studio</a></li>
+      <li><a href="#game">Games</a></li>
+      <li><a href="#principles">Principles</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a class="cta" href="#contact">Enquire</a>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="track">
+    <span>Established Craft</span><span>Timeless Play</span><span>Mobile &amp; Tablet</span><span>No Compromise</span><span>Questverse</span>
+    <span>Established Craft</span><span>Timeless Play</span><span>Mobile &amp; Tablet</span><span>No Compromise</span><span>Questverse</span>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="rays"></div>
+  <div class="wrap">
+    <span class="eyebrow">Independent Game Studio</span>
+    <h1>Games composed with <em>discipline</em></h1>
+    <div class="ornament" style="margin:26px auto 0">
+      <span class="ln"></span><span class="dm big"></span><span class="ln r"></span>
+    </div>
+    <div class="sub">Casual · Considered · Complete</div>
+    <p class="lead">
+      Questverse Game Studio designs and publishes casual games for mobile. We favour a small
+      catalogue, a long support window and a finish that holds up on the hundredth session,
+      not only the first.
+    </p>
+    <div class="btns">
+      <a class="btn btn-solid" href="#game">Our Catalogue</a>
+      <a class="btn btn-line" href="#contact">Write to Us</a>
+    </div>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="wrap">
+    <div><div class="n">2017</div><small>Established</small></div>
+    <div><div class="n">24</div><small>Titles Published</small></div>
+    <div><div class="n">52M+</div><small>Installs</small></div>
+    <div><div class="n">9</div><small>Years of Support</small></div>
+  </div>
+</div>
+
+<section id="studio">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no">Chapter One</span>
+      <h2>The Studio</h2>
+      <p>
+        A small, deliberately unhurried team. We would rather maintain a dozen games properly
+        than release a hundred and abandon them, so our catalogue grows slowly and our update
+        cycle never stops.
+      </p>
+      <div class="ornament"><span class="ln"></span><span class="dm"></span><span class="ln r"></span></div>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <span class="num">I</span>
+        <div class="dia"></div>
+        <h3>Craft</h3>
+        <p>Every frame is drawn by hand and every sound is authored in-house. We do not ship placeholder art and intend to replace it later.</p>
+      </div>
+      <div class="card">
+        <span class="num">II</span>
+        <div class="dia"></div>
+        <h3>Restraint</h3>
+        <p>A small catalogue is a promise. Each title receives attention proportional to the trust our players place in it.</p>
+      </div>
+      <div class="card">
+        <span class="num">III</span>
+        <div class="dia"></div>
+        <h3>Longevity</h3>
+        <p>Games released in 2018 still receive updates. Device compatibility is maintained for as long as the platform allows.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="game" style="padding-top:0">
+  <div class="wrap">
+    <div class="flag">
+      <div class="txt">
+        <span class="kicker">The Catalogue</span>
+        <h2>Questverse — a puzzle of quiet depth.</h2>
+        <p>
+          Our flagship title is a measured logic puzzle in the classical tradition: a rule is
+          introduced, understood, and then elaborated across hundreds of hand-built boards.
+          Nothing is randomised and nothing is wasted.
+        </p>
+        <p>
+          Hints are generous but never forced. Progress is saved the instant it is made, and
+          the entire game may be played without a connection or a single purchase.
+        </p>
+        <div class="tags">
+          <span class="tag">Puzzle</span>
+          <span class="tag">Offline</span>
+          <span class="tag">Hand-built</span>
+          <span class="tag">Free to Begin</span>
+        </div>
+      </div>
+      <div class="art">
+        <div class="glow"></div>
+        <div class="medal"><b>Q</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="principles" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="no">Chapter Two</span>
+      <h2>Our Principles</h2>
+      <div class="ornament"><span class="ln"></span><span class="dm"></span><span class="ln r"></span></div>
+    </div>
+    <div class="vals">
+      <div class="val">
+        <div class="g"><span>I</span></div>
+        <div>
+          <h3>No artificial friction</h3>
+          <p>We do not insert waiting, energy or timers into a game that did not need them. Difficulty comes from the puzzle, never from the shop.</p>
+        </div>
+      </div>
+      <div class="val">
+        <div class="g"><span>II</span></div>
+        <div>
+          <h3>Transparent commerce</h3>
+          <p>Prices are shown before the button is pressed. Rewarded advertising is a choice offered plainly, never a toll gate.</p>
+        </div>
+      </div>
+      <div class="val">
+        <div class="g"><span>III</span></div>
+        <div>
+          <h3>Discretion</h3>
+          <p>We collect what is required to operate the game and no more. Our <a href="/privacy/">Privacy Policy</a> states this in plain terms.</p>
+        </div>
+      </div>
+      <div class="val">
+        <div class="g"><span>IV</span></div>
+        <div>
+          <h3>Diligence</h3>
+          <p>A known defect is repaired before new content is considered. A game that crashes is not finished, whatever the store page asserts.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" style="padding-top:0">
+  <div class="wrap">
+    <div class="contact">
+      <h2>Correspondence</h2>
+      <div class="ornament" style="margin-bottom:26px"><span class="ln"></span><span class="dm"></span><span class="ln r"></span></div>
+      <p>
+        Publishers, partners, licensors and players are all welcome to write. Enquiries are
+        answered by the studio team directly.
+      </p>
+      <div class="mailrow">
+        <div class="mbox">
+          <small>General &amp; Player Support</small>
+          <a href="mailto:ajdjd.sj1234@gmail.com">ajdjd.sj1234@gmail.com</a>
+        </div>
+        <div class="mbox">
+          <small>Business &amp; Publishing</small>
+          <a href="mailto:ajdjd.sj1234@gmail.com">ajdjd.sj1234@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="fmk"></div>
+    <div class="cp">© 2026 Questverse Game Studio — All Rights Reserved</div>
+    <nav>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>
